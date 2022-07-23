@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'idea'
+}
+
+group 'com.sofka.juancarlosmaya'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    implementation 'io.cucumber:cucumber-junit:7.3.3'
+    implementation 'io.cucumber:cucumber-java:7.3.3'
+    implementation 'com.sikulix:sikulixapi:2.0.5'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.2.1'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+}
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+gradle.startParameter.continueOnFailure = true
