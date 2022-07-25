@@ -12,8 +12,6 @@ import io.cucumber.java.es.Y;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.Locale;
-
 
 public class LoginStepDefinition extends Configuration {
 
@@ -65,6 +63,7 @@ public class LoginStepDefinition extends Configuration {
             LOGGER.info("Esperado: products, Obtenido: " + result);
             Assertions.assertEquals("products", result);
             closeDriver();
+            quitDriver();
         } catch (Exception e) {
             Assertions.fail();
             quitDriver();
@@ -94,6 +93,7 @@ public class LoginStepDefinition extends Configuration {
             LOGGER.info("Esperado: true, Obtenido: "+ result.toString());
             Assertions.assertEquals(true, result);
             closeDriver();
+            quitDriver();
         }
         catch (Exception e)
         {
@@ -124,6 +124,7 @@ public class LoginStepDefinition extends Configuration {
             LOGGER.info("Esperado: true, Obtenido: "+ result.toString());
             Assertions.assertEquals(true, result);
             closeDriver();
+            quitDriver();
         }
         catch (Exception e)
         {
