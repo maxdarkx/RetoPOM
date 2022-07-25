@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         publish = true,
         features = "src/test/resources/features/sauceLogin.feature",
-        glue = "com.sofka.juancarlosmaya.stepdefinition.saucelogin",
-        tags = ""
+        glue = "com.sofka.juancarlosmaya.stepdefinition.saucelogin"
+        //tags = "@incorrectLogin"
 )
 public class LoginRunner {
 }
