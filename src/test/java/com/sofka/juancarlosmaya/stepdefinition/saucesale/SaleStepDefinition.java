@@ -64,10 +64,8 @@ public class SaleStepDefinition extends Configuration {
     public void elUsuarioIngresaALaPlataformaAñadeElPrimerArticuloDelInventarioAlCarritoYHaceCheckout() {
         int listSize = 0;
         shopItemsList = new ArrayList<GridItem>();
-
-
         try {
-            shopItemsList = storeDashboardPage.addTwoRandomItemsToShoppingCart();
+            shopItemsList = storeDashboardPage.addAnItemToShoppingCart(0);
 
             storeDashboardPage.goToCartCheckout();
             shoppingCartPage.fillCartInfo(FIRST_NAME, LAST_NAME, ZIP_CODE);
@@ -90,12 +88,48 @@ public class SaleStepDefinition extends Configuration {
             shoppingCartPage.finalizeCheckout();
             resultGreetings = shoppingCartPage.verifyGreetingsPage();
 
-            Assertions.assertEquals(true, resultShoppingCart);
-            Assertions.assertEquals(true, resultGreetings);
+            Assertions.assertTrue(resultShoppingCart);
+            Assertions.assertTrue(resultGreetings);
         } catch (Exception e) {
             Assertions.fail();
             quitDriver();
             LOGGER.error("Error message SALE ENTONCES:" + e.getMessage(), e);
+        }
+    }
+
+    @Cuando("el usuario ingresa a la plataforma, añade dos articulos del inventario al carrito, y hace checkout")
+    public void elUsuarioIngresaALaPlataformaAñadeDosArticulosDelInventarioAlCarritoYHaceCheckout() {
+        int listSize = 0;
+        shopItemsList = new ArrayList<GridItem>();
+        try {
+            shopItemsList = storeDashboardPage.addTwoRandomItemsToShoppingCart();
+
+            storeDashboardPage.goToCartCheckout();
+            shoppingCartPage.fillCartInfo(FIRST_NAME, LAST_NAME, ZIP_CODE);
+            shoppingCartPage.doCheckout();
+
+        } catch (Exception e) {
+            Assertions.fail();
+            quitDriver();
+            LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
+        }
+    }
+
+    @Cuando("el usuario ingresa a la plataforma, añade todos los articulos del inventario al carrito, y hace checkout")
+    public void elUsuarioIngresaALaPlataformaAñadeTodosLosArticulosDelInventarioAlCarritoYHaceCheckout() {
+        int listSize = 0;
+        shopItemsList = new ArrayList<GridItem>();
+        try {
+            shopItemsList = storeDashboardPage.addAllItemsToShoppingCart();
+
+            storeDashboardPage.goToCartCheckout();
+            shoppingCartPage.fillCartInfo(FIRST_NAME, LAST_NAME, ZIP_CODE);
+            shoppingCartPage.doCheckout();
+
+        } catch (Exception e) {
+            Assertions.fail();
+            quitDriver();
+            LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
         }
     }
 }

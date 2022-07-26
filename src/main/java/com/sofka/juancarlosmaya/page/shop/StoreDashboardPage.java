@@ -82,8 +82,19 @@ public class StoreDashboardPage extends CommonActionOnPages {
         findItems();
         List <Integer> listItems = Arrays.asList(0,1,2,3,4,5);
         Collections.shuffle(listItems);
+
         addAnItemToShoppingCart(listItems.get(5));
         addAnItemToShoppingCart(listItems.get(1));
+
+        return getShopItems();
+    }
+
+    public List<GridItem> addAllItemsToShoppingCart() {
+        findItems();
+
+        for (int i = 0; i < 6 ; i++) {
+            addAnItemToShoppingCart(i);
+        }
         return getShopItems();
     }
 }
