@@ -16,6 +16,8 @@ public class ShoppingCartPage extends CommonActionOnPages {
     private String sLastName;
     private String sZipCode;
 
+    private List<GridItem> itemsToCompare;
+
     @FindBy(id = "checkout")
     private WebElement goToCheckout;
 
@@ -36,6 +38,12 @@ public class ShoppingCartPage extends CommonActionOnPages {
 
     @FindBy(className = "summary_total_label")
     private WebElement cartTotalPrice;
+
+    @FindBy (id = "finish")
+    private WebElement buttonFinish;
+
+    @FindBy (className = "complete-header")
+    private WebElement labelGreetings;
 
 
     public ShoppingCartPage(WebDriver driver, int seconds, boolean explicitTime) {
@@ -59,40 +67,72 @@ public class ShoppingCartPage extends CommonActionOnPages {
 
     public Boolean verifyCheckout(List<GridItem> itemsToCompare)
     {
-        Boolean result = false;
-        String itemName;
-        String itemPrice;
-        String itemFromShoppingCartName;
-        String itemFromShoppingCartPrice;
-        double partialPrice = 0.0;
-        double taxes;
-        double totalPrice = 0.0;
-        String finalPrice;
-        String sTotalCartPrice = cartTotalPrice.getText().substring(8);
+        boolean result = false;
+
+        this.itemsToCompare = itemsToCompare;
+
         int i = 0;
         for (WebElement item: shopItem)
         {;
-            itemName = item.findElement(By.className("inventory_item_name")).getText().trim();
-            itemPrice = item.findElement(By.className("inventory_item_price")).getText().trim();
-            itemFromShoppingCartName =  itemsToCompare.get(i).getLabelName();
-            itemFromShoppingCartPrice = itemsToCompare.get(i).getLabelPrice();
-            result = itemName.equals(itemFromShoppingCartName)
-                    && itemPrice.equals(itemFromShoppingCartPrice);
+            result = verifyItemString(i, item);
             if(!result)
                 break;
             i++;
         }
+
         if(result)
-        {
-            for (GridItem item: itemsToCompare)
-                partialPrice += item.getPrice();
-            taxes = partialPrice * 0.08;
-            totalPrice = partialPrice + taxes;
-            finalPrice = new DecimalFormat("#.0#")
-                    .format(totalPrice)
-                    .replace(",", ".");
-            result = finalPrice.equals(sTotalCartPrice);
-        }
+            result = verifySalePrice();
+
+        return result;
+    }
+
+    private boolean verifySalePrice() {
+        double partialPrice = 0.0;
+        double taxes;
+        double totalPrice;
+        String sTotalCartPrice = cartTotalPrice.getText().substring(8);
+        boolean result;
+        String finalPrice;
+
+        for (GridItem item: itemsToCompare)
+            partialPrice += item.getPrice();
+
+        taxes = partialPrice * 0.08;
+        totalPrice = partialPrice + taxes;
+        finalPrice = new DecimalFormat("#.0#")
+                .format(totalPrice)
+                .replace(",", ".");
+        result = finalPrice.equals(sTotalCartPrice);
+        return result;
+    }
+
+    private boolean verifyItemString(int i, WebElement item) {
+        String itemPrice;
+        String itemFromShoppingCartPrice;
+        boolean result;
+        String itemName;
+        String itemFromShoppingCartName;
+        itemName = item.findElement(By.className("inventory_item_name")).getText().trim();
+        itemPrice = item.findElement(By.className("inventory_item_price")).getText().trim();
+        itemFromShoppingCartName =  itemsToCompare.get(i).getLabelName();
+        itemFromShoppingCartPrice = itemsToCompare.get(i).getLabelPrice();
+        result = itemName.equals(itemFromShoppingCartName)
+                && itemPrice.equals(itemFromShoppingCartPrice);
+        return result;
+    }
+
+
+    public void finalizeCheckout() {
+        withExplicitWaitClickOn(buttonFinish);
+    }
+
+    public boolean verifyGreetingsPage() {
+        boolean result = false;
+        String greetingsMessage = "THANK YOU FOR YOUR ORDER".toLowerCase();
+        result = greetingsMessage.equals(labelGreetings.getText()
+                .trim()
+                .toLowerCase()
+        );
         return result;
     }
 }

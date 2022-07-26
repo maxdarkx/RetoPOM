@@ -87,10 +87,15 @@ public class SaleStepDefinition extends Configuration {
 
     @Entonces("se verifica que el precio es correcto y se realiza la compra")
     public void seVerificaQueElPrecioEsCorrectoYSeRealizaLaCompra() {
-        Boolean  result;
+        boolean resultShoppingCart;
+        boolean resultGreetings;
         try {
-            result = shoppingCartPage.verifyCheckout(shopItemsList);
-            Assertions.assertEquals(true, result);
+            resultShoppingCart = shoppingCartPage.verifyCheckout(shopItemsList);
+            shoppingCartPage.finalizeCheckout();
+            resultGreetings = shoppingCartPage.verifyGreetingsPage();
+
+            Assertions.assertEquals(true, resultShoppingCart);
+            Assertions.assertEquals(true, resultGreetings);
         } catch (Exception e) {
             Assertions.fail();
             quitDriver();
