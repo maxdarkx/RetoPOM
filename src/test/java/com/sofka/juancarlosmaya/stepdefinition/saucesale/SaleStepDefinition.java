@@ -16,8 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sofka.juancarlosmaya.util.dictionary.DEFAULT_EXPLICIT_WAIT;
-import static com.sofka.juancarlosmaya.util.dictionary.IS_EXPLICIT_WAIT;
+import static com.sofka.juancarlosmaya.util.dictionary.*;
 
 public class SaleStepDefinition extends Configuration {
     private static final Logger LOGGER = Logger.getLogger(SaleStepDefinition.class);
@@ -64,17 +63,14 @@ public class SaleStepDefinition extends Configuration {
     @Cuando("el usuario ingresa a la plataforma, añade el primer articulo del inventario al carrito, y hace checkout")
     public void elUsuarioIngresaALaPlataformaAñadeElPrimerArticuloDelInventarioAlCarritoYHaceCheckout() {
         int listSize = 0;
-        try {
-            String firstName = "Juan";
-            String lastName = "Maya";
-            String zipCode = "050044";
+        shopItemsList = new ArrayList<GridItem>();
 
-            shopItemsList = new ArrayList<GridItem>();
-            shopItemsList = storeDashboardPage.addAnItemToShoppingCart(1);
-            shopItemsList = storeDashboardPage.addAnItemToShoppingCart(2);
-            shopItemsList = storeDashboardPage.addAnItemToShoppingCart(4);
+
+        try {
+            shopItemsList = storeDashboardPage.addTwoRandomItemsToShoppingCart();
+
             storeDashboardPage.goToCartCheckout();
-            shoppingCartPage.fillCartInfo(firstName, lastName, zipCode);
+            shoppingCartPage.fillCartInfo(FIRST_NAME, LAST_NAME, ZIP_CODE);
             shoppingCartPage.doCheckout();
 
         } catch (Exception e) {

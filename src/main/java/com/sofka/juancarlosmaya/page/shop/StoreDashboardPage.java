@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class StoreDashboardPage extends CommonActionOnPages {
@@ -73,5 +75,15 @@ public class StoreDashboardPage extends CommonActionOnPages {
 
     public List<GridItem> getShopItems() {
         return shopItems;
+    }
+
+
+    public List<GridItem> addTwoRandomItemsToShoppingCart() {
+        findItems();
+        List <Integer> listItems = Arrays.asList(0,1,2,3,4,5);
+        Collections.shuffle(listItems);
+        addAnItemToShoppingCart(listItems.get(5));
+        addAnItemToShoppingCart(listItems.get(1));
+        return getShopItems();
     }
 }
