@@ -1,7 +1,7 @@
 package com.sofka.juancarlosmaya.stepdefinition.saucelogin;
 
 import com.sofka.juancarlosmaya.page.login.LoginFormPage;
-import com.sofka.juancarlosmaya.page.login.StoreDashboardPage;
+import com.sofka.juancarlosmaya.page.shop.StoreDashboardPage;
 import com.sofka.juancarlosmaya.stepdefinition.setup.Configuration;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
