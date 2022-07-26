@@ -3,6 +3,7 @@ package com.sofka.juancarlosmaya.stepdefinition.saucelogin;
 import com.sofka.juancarlosmaya.page.login.LoginFormPage;
 import com.sofka.juancarlosmaya.page.login.StoreDashboardPage;
 import com.sofka.juancarlosmaya.stepdefinition.setup.Configuration;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
@@ -12,12 +13,13 @@ import io.cucumber.java.es.Y;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 
+import static com.sofka.juancarlosmaya.util.dictionary.DEFAULT_EXPLICIT_WAIT;
+import static com.sofka.juancarlosmaya.util.dictionary.IS_EXPLICIT_WAIT;
+
 
 public class LoginStepDefinition extends Configuration {
 
     private static final Logger LOGGER = Logger.getLogger(LoginStepDefinition.class);
-    private static final boolean IS_EXPLICIT_WAIT = true;
-    private static final int DEFAULT_EXPLICIT_WAIT = 30;
     private String usuario;
     private String contrasena;
     private LoginFormPage loginFormPage;
@@ -30,6 +32,13 @@ public class LoginStepDefinition extends Configuration {
         generalSetUp();
     }
 
+    @After
+    public void finishedTest()
+    {
+        closeDriver();
+        quitDriver();
+    }
+
     @Dado("Que el usuario se encuentra registrado en el sistema con el nombre de usuario {string} y la contraseña {string}")
     public void queElUsuarioSeEncuentraRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasena(String usuario, String contrasena) {
         try {
@@ -37,8 +46,7 @@ public class LoginStepDefinition extends Configuration {
             this.contrasena = contrasena;
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message DADO:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN DADO:" + e.getMessage(), e);
         }
     }
 
@@ -50,8 +58,7 @@ public class LoginStepDefinition extends Configuration {
             loginFormPage.fillLoginWith(usuario, contrasena);
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message CUANDO:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN CUANDO:" + e.getMessage(), e);
         }
     }
 
@@ -62,12 +69,9 @@ public class LoginStepDefinition extends Configuration {
             result = loginFormPage.isLoginDone();
             LOGGER.info("Esperado: products, Obtenido: " + result);
             Assertions.assertEquals("products", result);
-            closeDriver();
-            quitDriver();
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message ENTONCES:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN ENTONCES: " + e.getMessage(), e);
         }
     }
 
@@ -75,11 +79,10 @@ public class LoginStepDefinition extends Configuration {
     public void haceLogout() {
         try {
             storeDashboardPage.doLogout();
-
+            LOGGER.info("Hace logout");
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message CUANDO hace logout: " + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN CUANDO: " + e.getMessage(), e);
         }
     }
 
@@ -92,14 +95,11 @@ public class LoginStepDefinition extends Configuration {
             result = loginFormPage.isLogoutDone();
             LOGGER.info("Esperado: true, Obtenido: "+ result.toString());
             Assertions.assertEquals(true, result);
-            closeDriver();
-            quitDriver();
         }
         catch (Exception e)
         {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message ENTONCES hace logout:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN ENTONCES: " + e.getMessage(), e);
         }
     }
 
@@ -111,8 +111,7 @@ public class LoginStepDefinition extends Configuration {
             LOGGER.info("Login incorrecto, contaseña: "+ contrasena);
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message CUANDO:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN CUANDO: " + e.getMessage(), e);
         }
     }
 
@@ -123,14 +122,11 @@ public class LoginStepDefinition extends Configuration {
             result = loginFormPage.isLoginWrong();
             LOGGER.info("Esperado: true, Obtenido: "+ result.toString());
             Assertions.assertEquals(true, result);
-            closeDriver();
-            quitDriver();
         }
         catch (Exception e)
         {
             Assertions.fail();
-            quitDriver();
-            LOGGER.error("Error message ENTONCES hace login incorrecto:" + e.getMessage(), e);
+            LOGGER.error("Error message LOGIN ENTONCES: " + e.getMessage(), e);
         }
     }
 }
