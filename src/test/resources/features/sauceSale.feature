@@ -1,7 +1,7 @@
 #language: es
 Característica: Compras en la pagina
   Yo como usuario
-  Deseo ingresar a la pagina de SwagLabs
+  Deseo ingresar a la pagina de SauceLabs
   para comprar items de la pagina
 
   Escenario: El usuario agrega un item al carrito y lo compra
