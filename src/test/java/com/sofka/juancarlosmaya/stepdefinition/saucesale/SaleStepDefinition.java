@@ -30,7 +30,6 @@ public class SaleStepDefinition extends Configuration {
 
     @Before
     public void setup() {
-        setUpWebDriver();
         setUpLog4j2();
         generalSetUp();
     }
@@ -43,9 +42,9 @@ public class SaleStepDefinition extends Configuration {
 
     @Dado("Que el usuario se encuentra registrado en el sistema con el nombre de usuario {string} y la contraseña {string} y hace login")
     public void queElUsuarioSeEncuentraRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasenaYHaceLogin(String usuario, String contrasena) {
-        loginFormPage = new LoginFormPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-        storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-        shoppingCartPage = new ShoppingCartPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+        loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+        storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+        shoppingCartPage = new ShoppingCartPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
 
         try {
             this.usuario = usuario;
@@ -54,7 +53,6 @@ public class SaleStepDefinition extends Configuration {
 
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
             LOGGER.error("Error message SALE DADO:" + e.getMessage(), e);
         }
     }
@@ -73,7 +71,6 @@ public class SaleStepDefinition extends Configuration {
 
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
             LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
         }
 
@@ -92,7 +89,6 @@ public class SaleStepDefinition extends Configuration {
             Assertions.assertTrue(resultGreetings);
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
             LOGGER.error("Error message SALE ENTONCES:" + e.getMessage(), e);
         }
     }
@@ -110,7 +106,6 @@ public class SaleStepDefinition extends Configuration {
 
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
             LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
         }
     }
@@ -128,7 +123,6 @@ public class SaleStepDefinition extends Configuration {
 
         } catch (Exception e) {
             Assertions.fail();
-            quitDriver();
             LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
         }
     }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.time.Duration;
 import java.util.Locale;
 
 public class LoginFormPage extends CommonActionOnPages {
@@ -26,18 +27,18 @@ public class LoginFormPage extends CommonActionOnPages {
     @FindBy(xpath = "//h3[@data-test='error']")
     private WebElement errorLogin;
 
-    public LoginFormPage(WebDriver driver, int seconds, boolean explicitTime) {
-        super(driver, seconds, explicitTime);
+    public LoginFormPage(WebDriver driver, Duration duration, boolean explicitTime) {
+        super(driver, duration, explicitTime);
         pageFactoryInitElement(driver, this);
     }
 
     public void fillLoginWith(String user,String pass ) throws InterruptedException
     {
-        withExplicitWaitScrollOn(userName);
-        withExplicitWaitTypeOn(userName, user);
-        withExplicitWaitScrollOn(password);
-        withExplicitWaitTypeOn(password, pass);
-        withExplicitWaitDoSubmit(loginButton);
+        scrollOn(userName);
+        typeOn(userName, user);
+        scrollOn(password);
+        typeOn(password, pass);
+        doSubmit(loginButton);
         LOGGER.info("Login Successfull");
     }
 

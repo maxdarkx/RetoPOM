@@ -8,9 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOf;
 
 public class CommonActionOnPages extends BaseSikulix{
     private static final Logger LOGGER = Logger.getLogger(CommonActionOnPages.class);
@@ -33,7 +35,7 @@ public class CommonActionOnPages extends BaseSikulix{
         }
     }
 
-    public CommonActionOnPages(WebDriver driver, int seconds, boolean explicitTime) {
+    public CommonActionOnPages(WebDriver driver, Duration duration, boolean explicitTime) {
         try{
             if(driver == null)
                 LOGGER.warn(WEBDRIVER_NULL_MESSAGE);
@@ -41,9 +43,9 @@ public class CommonActionOnPages extends BaseSikulix{
             this.driver = driver;
 
             if(explicitTime)
-                setWebDriverExplicitWait(driver, seconds);
+                setWebDriverExplicitWait(driver, duration);
             else
-                webDriverImplicitWait(driver, seconds);
+                webDriverImplicitWait(driver, duration.toSecondsPart());
 
         } catch (Exception e){
             LOGGER.warn(e.getMessage(), e);
@@ -51,9 +53,9 @@ public class CommonActionOnPages extends BaseSikulix{
     }
 
     //Configure the explicit wait.
-    private void setWebDriverExplicitWait(WebDriver driver, int seconds){
+    private void setWebDriverExplicitWait(WebDriver driver, Duration duration){
         try{
-            webDriverExplicitWait = new WebDriverWait(driver, seconds);
+            webDriverExplicitWait = new WebDriverWait(driver, duration);
 
         } catch (Exception e){
             LOGGER.warn(e.getMessage(), e);
@@ -156,5 +158,10 @@ public class CommonActionOnPages extends BaseSikulix{
     protected String withExplicitWaitGetText(WebElement webElement)
     {
         return webDriverExplicitWait.until(elementToBeClickable(webElement)).getText();
+    }
+
+    protected void withExplicitWaitWaitUntilElementIsNotPresent(WebElement webElement)
+    {
+        webDriverExplicitWait.until(invisibilityOf(webElement));
     }
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,8 +31,8 @@ public class StoreDashboardPage extends CommonActionOnPages {
     private WebElement goToCart;
 
 
-    public StoreDashboardPage(WebDriver driver, int seconds, boolean explicitTime) {
-        super(driver, seconds, explicitTime);
+    public StoreDashboardPage(WebDriver driver, Duration duration, boolean explicitTime) {
+        super(driver, duration, explicitTime);
         pageFactoryInitElement(driver, this);
     }
 

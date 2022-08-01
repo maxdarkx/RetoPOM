@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.util.List;
 
 public class ShoppingCartPage extends CommonActionOnPages {
@@ -46,8 +47,8 @@ public class ShoppingCartPage extends CommonActionOnPages {
     private WebElement labelGreetings;
 
 
-    public ShoppingCartPage(WebDriver driver, int seconds, boolean explicitTime) {
-        super(driver, seconds, explicitTime);
+    public ShoppingCartPage(WebDriver driver, Duration duration, boolean explicitTime) {
+        super(driver, duration, explicitTime);
         pageFactoryInitElement(driver, this);
     }
 

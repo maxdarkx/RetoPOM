@@ -12,9 +12,9 @@ import io.cucumber.java.es.Y;
 
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.remote.Browser;
 
-import static com.sofka.juancarlosmaya.util.dictionary.DEFAULT_EXPLICIT_WAIT;
-import static com.sofka.juancarlosmaya.util.dictionary.IS_EXPLICIT_WAIT;
+import static com.sofka.juancarlosmaya.util.dictionary.*;
 
 
 public class LoginStepDefinition extends Configuration {
@@ -27,7 +27,6 @@ public class LoginStepDefinition extends Configuration {
 
     @Before
     public void setup() {
-        setUpWebDriver();
         setUpLog4j2();
         generalSetUp();
     }
@@ -53,8 +52,8 @@ public class LoginStepDefinition extends Configuration {
     @Cuando("el usuario ingresa a la plataforma")
     public void elUsuarioIngresaALaPlataforma() {
         try {
-            loginFormPage = new LoginFormPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-            storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+            loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+            storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
             loginFormPage.fillLoginWith(usuario, contrasena);
         } catch (Exception e) {
             Assertions.fail();
@@ -106,7 +105,7 @@ public class LoginStepDefinition extends Configuration {
     @Cuando("el usuario intenta ingresar a la plataforma, pero se da cuenta que su contraseña esta incorrecta")
     public void elUsuarioIntentaIngresarALaPlataformaPeroSeDaCuentaQueSuContraseñaEstaIncorrecta() {
         try {
-            loginFormPage = new LoginFormPage(driver, DEFAULT_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+            loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
             loginFormPage.fillLoginWith(usuario, contrasena);
             LOGGER.info("Login incorrecto, contaseña: "+ contrasena);
         } catch (Exception e) {

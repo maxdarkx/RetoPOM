@@ -2,6 +2,7 @@ package com.sofka.juancarlosmaya.stepdefinition.setup;
 
 import com.sofka.juancarlosmaya.stepdefinition.saucelogin.LoginStepDefinition;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.thucydides.core.annotations.Managed;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
@@ -18,16 +19,11 @@ public class Configuration {
 
     private static final String RETO_URL = "https://www.saucedemo.com/";
 
+    @Managed
     protected WebDriver driver;
 
-    protected void setUpWebDriver(){
-        WebDriverManager.chromedriver().setup();
-    }
-
     protected void generalSetUp(){
-        driver = new ChromeDriver();
         driver.get(RETO_URL);
-        driver.manage().window().maximize();
     }
 
     protected void setUpLog4j2(){
