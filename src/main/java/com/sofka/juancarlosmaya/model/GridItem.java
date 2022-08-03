@@ -1,9 +1,10 @@
 package com.sofka.juancarlosmaya.model;
 
+import net.serenitybdd.core.Reportable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class GridItem {
+public class GridItem{
     private WebElement button;
 
     private WebElement cellItem;
@@ -37,5 +38,11 @@ public class GridItem {
 
     public String getLabelName() {
         return labelName;
+    }
+
+    @Override
+    public String toString() {
+        return "Se obtiene el elemento de la tienda con nombre: "+ labelName+
+                " con precio: "+labelPrice+" y con boton "+button.toString();
     }
 }

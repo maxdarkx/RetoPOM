@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:3.2.5")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:3.3.0")
     }
 }
 
@@ -14,9 +14,8 @@ plugins {
     id 'java'
     id 'java-library'
     id 'idea'
+    id "net.serenity-bdd.serenity-gradle-plugin" version '3.3.0'
 }
-
-apply plugin: 'net.serenity-bdd.aggregator'
 
 
 group 'com.sofka.juancarlosmaya'
@@ -31,16 +30,16 @@ repositories {
 
 dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.2.5'
-    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '3.2.5'
-    implementation group: 'net.serenity-bdd', name: 'serenity-assertions', version: '3.2.5'
-    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: '3.2.5'
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.3.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '3.3.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-assertions', version: '3.3.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: '3.3.0'
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
-    implementation group: 'io.cucumber', name: 'cucumber-core', version: '4.2.0'
-    implementation group: 'io.cucumber', name: 'cucumber-junit', version : '4.2.0'
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
     implementation group: 'com.sikulix', name: 'sikulixapi', version: '2.0.5'
 }
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
+
+test.finalizedBy(aggregate)

@@ -2,6 +2,10 @@ package com.sofka.juancarlosmaya.page.shop;
 
 import com.sofka.juancarlosmaya.model.GridItem;
 import com.sofka.juancarlosmaya.page.common.CommonActionOnPages;
+import net.serenitybdd.core.Reportable;
+import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Screenshots;
+import net.thucydides.core.annotations.Step;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,17 +47,26 @@ public class StoreDashboardPage extends CommonActionOnPages {
         LOGGER.info("Logout Successfull");
     }
 
+
     public void findItems()
     {
         cellItems = new ArrayList<>();
         cellItems.addAll(cellItem);
     }
 
+    @Step("Anadir un item al carro de compras")
     public void addGridItemToCartList(int i)
     {
         GridItem item = new GridItem(cellItems.get(i));
         shopItems.add(item);
         withExplicitWaitClickOn(item.getButton());
+        Serenity.recordReportData().withTitle("Se anade un item al carro de compras").andContents(item.toString());
+Serenity.reportThat(" ", new Reportable() {
+    @Override
+    public void perform() {
+
+    }
+});
     }
 
     public void removeItemFromCartList(int i)

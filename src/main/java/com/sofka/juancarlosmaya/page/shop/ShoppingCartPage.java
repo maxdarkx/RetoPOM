@@ -2,6 +2,8 @@ package com.sofka.juancarlosmaya.page.shop;
 
 import com.sofka.juancarlosmaya.model.GridItem;
 import com.sofka.juancarlosmaya.page.common.CommonActionOnPages;
+import net.serenitybdd.core.Serenity;
+import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.List;
+
+
 
 public class ShoppingCartPage extends CommonActionOnPages {
 
@@ -71,7 +75,7 @@ public class ShoppingCartPage extends CommonActionOnPages {
         boolean result = false;
 
         this.itemsToCompare = itemsToCompare;
-
+        Serenity.takeScreenshot();
         int i = 0;
         for (WebElement item: shopItem)
         {;
