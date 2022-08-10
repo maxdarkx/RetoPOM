@@ -1,5 +1,6 @@
-package com.sofka.juancarlosmaya.page.common;
+package com.sofka.juancarlosmaya.pages.common;
 
+import net.thucydides.core.pages.PageObject;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOf;
 
-public class CommonActionOnPages extends BaseSikulix{
+public class CommonActionOnPages extends PageObject {
     private static final Logger LOGGER = Logger.getLogger(CommonActionOnPages.class);
     private static final String WEBDRIVER_NULL_MESSAGE = "\nAtencion!\n\rel webdriver es nulo.\n";
     private WebDriver driver;
@@ -96,9 +97,6 @@ public class CommonActionOnPages extends BaseSikulix{
         driver.findElement(locator).click();
     }
 
-    protected void clickOn(WebElement webElement){
-        webElement.click();
-    }
 
     protected void withExplicitWaitClickOn(WebElement webElement)
     {

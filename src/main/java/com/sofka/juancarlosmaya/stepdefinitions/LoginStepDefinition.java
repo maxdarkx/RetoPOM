@@ -1,8 +1,8 @@
-package com.sofka.juancarlosmaya.stepdefinition.saucelogin;
+package com.sofka.juancarlosmaya.stepdefinitions;
 
-import com.sofka.juancarlosmaya.page.login.LoginFormPage;
-import com.sofka.juancarlosmaya.page.shop.StoreDashboardPage;
-import com.sofka.juancarlosmaya.stepdefinition.setup.Configuration;
+import com.sofka.juancarlosmaya.pages.login.LoginFormPage;
+import com.sofka.juancarlosmaya.pages.shop.StoreDashboardPage;
+import com.sofka.juancarlosmaya.stepdefinitions.setup.Configuration;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.es.Cuando;
@@ -10,11 +10,11 @@ import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 
+import net.thucydides.core.annotations.Steps;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.remote.Browser;
 
-import static com.sofka.juancarlosmaya.util.dictionary.*;
+import static com.sofka.juancarlosmaya.utils.dictionary.*;
 
 
 public class LoginStepDefinition extends Configuration {
@@ -22,7 +22,11 @@ public class LoginStepDefinition extends Configuration {
     private static final Logger LOGGER = Logger.getLogger(LoginStepDefinition.class);
     private String usuario;
     private String contrasena;
+
+    @Steps(shared = true)
     private LoginFormPage loginFormPage;
+
+    @Steps(shared = true)
     private StoreDashboardPage storeDashboardPage;
 
     @Before
@@ -52,8 +56,8 @@ public class LoginStepDefinition extends Configuration {
     @Cuando("el usuario ingresa a la plataforma")
     public void elUsuarioIngresaALaPlataforma() {
         try {
-            loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-            storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+            loginFormPage = new LoginFormPage();
+            storeDashboardPage = new StoreDashboardPage();
             loginFormPage.fillLoginWith(usuario, contrasena);
         } catch (Exception e) {
             Assertions.fail();
@@ -105,7 +109,7 @@ public class LoginStepDefinition extends Configuration {
     @Cuando("el usuario intenta ingresar a la plataforma, pero se da cuenta que su contraseña esta incorrecta")
     public void elUsuarioIntentaIngresarALaPlataformaPeroSeDaCuentaQueSuContraseñaEstaIncorrecta() {
         try {
-            loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+            loginFormPage = new LoginFormPage();
             loginFormPage.fillLoginWith(usuario, contrasena);
             LOGGER.info("Login incorrecto, contaseña: "+ contrasena);
         } catch (Exception e) {

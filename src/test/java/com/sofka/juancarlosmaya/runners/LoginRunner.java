@@ -1,4 +1,4 @@
-package com.sofka.juancarlosmaya.runner.saucelogin;
+package com.sofka.juancarlosmaya.runners;
 
 
 import io.cucumber.junit.CucumberOptions;
@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         publish = true,
-        features = "src/test/resources/features/sauceLogin.feature",
-        glue = "com.sofka.juancarlosmaya.stepdefinition.saucelogin"
+        features = "src/test/resources/features/login.feature",
+        glue = "com.sofka.juancarlosmaya.stepdefinitions"
         //tags = "@incorrectLogin"
 )
 public class LoginRunner {
