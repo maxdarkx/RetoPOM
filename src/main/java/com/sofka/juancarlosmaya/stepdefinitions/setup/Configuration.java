@@ -1,16 +1,13 @@
-package com.sofka.juancarlosmaya.stepdefinition.setup;
+package com.sofka.juancarlosmaya.stepdefinitions.setup;
 
-import com.sofka.juancarlosmaya.stepdefinition.saucelogin.LoginStepDefinition;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import net.thucydides.core.annotations.Managed;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static com.google.common.base.StandardSystemProperty.USER_DIR;
-import static com.sofka.juancarlosmaya.util.Log4jValues.LOG4J_LINUX_PROPERTIES_FILE_PATH;
-import static com.sofka.juancarlosmaya.util.Log4jValues.LOG4J_WINDOWS_PROPERTIES_FILE_PATH;
+import static com.sofka.juancarlosmaya.utils.Log4jValues.LOG4J_LINUX_PROPERTIES_FILE_PATH;
+import static com.sofka.juancarlosmaya.utils.Log4jValues.LOG4J_WINDOWS_PROPERTIES_FILE_PATH;
 
 public class Configuration {
 

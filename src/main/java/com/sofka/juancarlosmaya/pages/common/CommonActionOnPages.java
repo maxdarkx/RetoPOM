@@ -1,4 +1,4 @@
-package com.sofka.juancarlosmaya.page.common;
+package com.sofka.juancarlosmaya.pages.common;
 
 import net.thucydides.core.pages.PageObject;
 import org.apache.log4j.Logger;

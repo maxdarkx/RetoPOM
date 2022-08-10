@@ -1,6 +1,5 @@
-package com.sofka.juancarlosmaya.runner.saucesale;
+package com.sofka.juancarlosmaya.runners;
 
-import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
@@ -10,7 +9,7 @@ import org.junit.runner.RunWith;
          snippets = CucumberOptions.SnippetType.CAMELCASE,
          publish = true,
          features = "src/test/resources/features/sales.feature",
-         glue = "com.sofka.juancarlosmaya.stepdefinition.saucesale",
+         glue = "com.sofka.juancarlosmaya.stepdefinitions",
         tags = "@TwoItems"
 )
 

@@ -1,4 +1,4 @@
-package com.sofka.juancarlosmaya.util;
+package com.sofka.juancarlosmaya.utils;
 
 public enum Log4jValues {
     LOG4J_LINUX_PROPERTIES_FILE_PATH("/src/main/resources/log4j2.properties"),

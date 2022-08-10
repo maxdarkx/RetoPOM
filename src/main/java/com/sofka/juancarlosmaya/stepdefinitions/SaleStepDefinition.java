@@ -1,17 +1,17 @@
-package com.sofka.juancarlosmaya.stepdefinition.saucesale;
+package com.sofka.juancarlosmaya.stepdefinitions;
 
-import com.sofka.juancarlosmaya.model.GridItem;
-import com.sofka.juancarlosmaya.page.login.LoginFormPage;
-import com.sofka.juancarlosmaya.page.shop.ShoppingCartPage;
-import com.sofka.juancarlosmaya.page.shop.StoreDashboardPage;
-import com.sofka.juancarlosmaya.stepdefinition.setup.Configuration;
+import com.sofka.juancarlosmaya.forms.login.LoginForm;
+import com.sofka.juancarlosmaya.models.GridItem;
+import com.sofka.juancarlosmaya.pages.login.LoginFormPage;
+import com.sofka.juancarlosmaya.pages.shop.ShoppingCartPage;
+import com.sofka.juancarlosmaya.pages.shop.StoreDashboardPage;
+import com.sofka.juancarlosmaya.stepdefinitions.setup.Configuration;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Entonces;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.annotations.Screenshots;
 import net.thucydides.core.annotations.Steps;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sofka.juancarlosmaya.util.dictionary.*;
+import static com.sofka.juancarlosmaya.utils.dictionary.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SaleStepDefinition extends Configuration {
@@ -28,8 +28,6 @@ public class SaleStepDefinition extends Configuration {
     private String contrasena;
 
     @Steps(shared = true)
-    private DoLoginForm login;
-
     private LoginFormPage loginFormPage;
 
     @Steps(shared = true)
@@ -56,9 +54,9 @@ public class SaleStepDefinition extends Configuration {
 
     @Dado("Que el usuario se encuentra registrado en el sistema con el nombre de usuario {string} y la contraseña {string} y hace login")
     public void queElUsuarioSeEncuentraRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasenaYHaceLogin(String usuario, String contrasena) {
-        loginFormPage = new LoginFormPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-        storeDashboardPage = new StoreDashboardPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
-        shoppingCartPage = new ShoppingCartPage(driver, DEFAULT_DURATION_EXPLICIT_WAIT, IS_EXPLICIT_WAIT);
+        loginFormPage = new LoginFormPage();
+        storeDashboardPage = new StoreDashboardPage();
+        shoppingCartPage = new ShoppingCartPage();
 
         try {
             this.usuario = usuario;

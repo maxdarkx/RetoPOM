@@ -1,4 +1,4 @@
-package com.sofka.juancarlosmaya.util;
+package com.sofka.juancarlosmaya.utils;
 
 import java.time.Duration;
 

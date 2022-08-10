@@ -1,6 +1,5 @@
-package com.sofka.juancarlosmaya.model;
+package com.sofka.juancarlosmaya.models;
 
-import net.serenitybdd.core.Reportable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

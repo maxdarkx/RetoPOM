@@ -1,21 +1,23 @@
-package com.sofka.juancarlosmaya.page.shop;
+package com.sofka.juancarlosmaya.pages.shop;
 
-import com.sofka.juancarlosmaya.model.GridItem;
-import com.sofka.juancarlosmaya.page.common.CommonActionOnPages;
+import com.sofka.juancarlosmaya.models.GridItem;
 import net.serenitybdd.core.Serenity;
-import net.thucydides.core.steps.ScenarioSteps;
+import net.serenitybdd.core.pages.PageObject;
+import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.text.DecimalFormat;
-import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.sofka.juancarlosmaya.forms.shop.ShoppingCartForm.*;
 
 
-
-public class ShoppingCartPage extends CommonActionOnPages {
+public class ShoppingCartPage extends PageObject {
 
     private String sFirstName;
     private String sLastName;
@@ -23,61 +25,35 @@ public class ShoppingCartPage extends CommonActionOnPages {
 
     private List<GridItem> itemsToCompare;
 
-    @FindBy(id = "checkout")
-    private WebElement goToCheckout;
-
-    @FindBy(id = "first-name")
-    private WebElement firstName;
-
-    @FindBy(id = "last-name")
-    private WebElement lastName;
-
-    @FindBy(id = "postal-code")
-    private WebElement zipCode;
-
-    @FindBy(id = "continue")
-    private WebElement buttonContinue;
-
-    @FindBy(className = "cart_item")
-    private List<WebElement> shopItem;
-
-    @FindBy(className = "summary_total_label")
-    private WebElement cartTotalPrice;
-
-    @FindBy (id = "finish")
-    private WebElement buttonFinish;
-
-    @FindBy (className = "complete-header")
-    private WebElement labelGreetings;
+    @Managed
+    private WebDriver driver;
 
 
-    public ShoppingCartPage(WebDriver driver, Duration duration, boolean explicitTime) {
-        super(driver, duration, explicitTime);
-        pageFactoryInitElement(driver, this);
-    }
-
+    @Step("Se obtienen los datos del cliente al carrito de compras")
     public void fillCartInfo(String firstName, String lastName, String zipCode)
     {
         sFirstName = firstName;
         sLastName = lastName;
         sZipCode = zipCode;
     }
+
+    @Step("El usuario se desplaza al carrito de compras e ingresa sus datos personales")
     public void doCheckout() {
-        withExplicitWaitClickOn(goToCheckout);
-        withExplicitWaitTypeOn(firstName, sFirstName);
-        withExplicitWaitTypeOn(lastName, sLastName);
-        withExplicitWaitTypeOn(zipCode, sZipCode);
-        withExplicitWaitClickOn(buttonContinue);
+        $(BUTTON_GO_TO_CHECKOUT).click();
+        $(TEXT_FIRST_NAME).type(sFirstName);
+        $(TEXT_LAST_NAME).type(sLastName);
+        $(TEXT_POSTAL_CODE).type(sZipCode);
+        $(BUTTON_CONTINUE_TRANSACTION).click();
     }
 
+    @Step("Se anade cada item a la lista del usuario para verificar despues el carrito de compras")
     public Boolean verifyCheckout(List<GridItem> itemsToCompare)
     {
         boolean result = false;
 
         this.itemsToCompare = itemsToCompare;
-        Serenity.takeScreenshot();
         int i = 0;
-        for (WebElement item: shopItem)
+        for (WebElement item: $$(LIST_CART_ITEM).stream().map(WebElementFacade::getElement).collect(Collectors.toList()))
         {;
             result = verifyItemString(i, item);
             if(!result)
@@ -95,7 +71,7 @@ public class ShoppingCartPage extends CommonActionOnPages {
         double partialPrice = 0.0;
         double taxes;
         double totalPrice;
-        String sTotalCartPrice = cartTotalPrice.getText().substring(8);
+        String sTotalCartPrice = $(LABEL_TOTAL_PRICE).getText().substring(8);
         boolean result;
         String finalPrice;
 
@@ -127,14 +103,18 @@ public class ShoppingCartPage extends CommonActionOnPages {
     }
 
 
+    @Step("El usuario hace click en el boton de finalizar la transaccion")
     public void finalizeCheckout() {
-        withExplicitWaitClickOn(buttonFinish);
+
+        $(BUTTON_FINISH_CHECKOUT).click();
     }
 
+    @Step("Se verifica que el usuario se encuentre en la pagina de felicitacion por la compra realizada")
     public boolean verifyGreetingsPage() {
         boolean result = false;
         String greetingsMessage = "THANK YOU FOR YOUR ORDER".toLowerCase();
-        result = greetingsMessage.equals(labelGreetings.getText()
+        result = greetingsMessage.equals(
+                $(LABEL_GREETINGS).getText()
                 .trim()
                 .toLowerCase()
         );
