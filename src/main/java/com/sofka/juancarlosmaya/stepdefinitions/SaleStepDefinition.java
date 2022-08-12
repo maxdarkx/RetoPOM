@@ -12,9 +12,11 @@ import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Entonces;
 import net.serenitybdd.core.Serenity;
+import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,12 @@ import static com.sofka.juancarlosmaya.utils.dictionary.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SaleStepDefinition extends Configuration {
-    private static final Logger LOGGER = Logger.getLogger(SaleStepDefinition.class);
+   /* private static final Logger LOGGER = Logger.getLogger(SaleStepDefinition.class);
     private String usuario;
     private String contrasena;
+
+    @Managed
+    WebDriver driver;
 
     @Steps(shared = true)
     private LoginFormPage loginFormPage;
@@ -54,8 +59,8 @@ public class SaleStepDefinition extends Configuration {
 
     @Dado("Que el usuario se encuentra registrado en el sistema con el nombre de usuario {string} y la contraseña {string} y hace login")
     public void queElUsuarioSeEncuentraRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasenaYHaceLogin(String usuario, String contrasena) {
-        loginFormPage = new LoginFormPage();
-        storeDashboardPage = new StoreDashboardPage();
+        loginFormPage = new LoginFormPage(driver);
+        storeDashboardPage = new StoreDashboardPage(driver);
         shoppingCartPage = new ShoppingCartPage();
 
         try {
@@ -147,4 +152,6 @@ public class SaleStepDefinition extends Configuration {
             LOGGER.error("Error message SALE CUANDO:" + e.getMessage(), e);
         }
     }
+
+    */
 }

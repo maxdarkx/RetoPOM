@@ -16,11 +16,11 @@ public class Configuration {
 
     private static final String RETO_URL = "https://www.saucedemo.com/";
 
-    @Managed
-    protected WebDriver driver;
+    //@Managed
+    //protected WebDriver driver;
 
     protected void generalSetUp(){
-        driver.get(RETO_URL);
+       // driver.get(RETO_URL);
     }
 
     protected void setUpLog4j2(){
@@ -44,11 +44,13 @@ public class Configuration {
     }
 
     protected void quitDriver(){
-        driver.quit();
+
+        //driver.quit();
     }
 
     protected void closeDriver()
     {
-        driver.close();
+
+        //driver.close();
     }
 }

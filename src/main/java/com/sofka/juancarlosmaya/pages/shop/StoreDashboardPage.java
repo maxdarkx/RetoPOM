@@ -1,5 +1,6 @@
 package com.sofka.juancarlosmaya.pages.shop;
 
+import com.google.common.base.Predicate;
 import com.sofka.juancarlosmaya.models.GridItem;
 import com.sofka.juancarlosmaya.pages.common.CommonActionOnPages;
 import net.serenitybdd.core.Reportable;
@@ -9,6 +10,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Step;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,11 +31,12 @@ public class StoreDashboardPage extends PageObject {
     private List<GridItem> shopItems = new ArrayList<>();
     private List<WebElement> cellItems;
 
-    @Managed
-    private WebDriver driver;
 
+    public StoreDashboardPage(WebDriver driver) {
+        super(driver);
+    }
 
-    @Step("User do logout from the application")
+    //@Step("User do logout from the application")
     public void doLogout()
     {
         $(BUTTON_MAIN_MENU).click();
@@ -42,14 +45,14 @@ public class StoreDashboardPage extends PageObject {
     }
 
 
-    @Step("el usuario observa todos los items disponibles en la tienda")
+    //@Step("el usuario observa todos los items disponibles en la tienda")
     public void findItems()
     {
         cellItems = new ArrayList<>();
         cellItems.addAll($$(TABLE_CELLITEM).stream().map(WebElementFacade::getElement).collect(Collectors.toList()));
     }
 
-    @Step("Anadir un item al carro de compras")
+    //@Step("Anadir un item al carro de compras")
     public void addGridItemToCartList(int i) {
         GridItem item = new GridItem(cellItems.get(i));
         shopItems.add(item);
@@ -57,14 +60,14 @@ public class StoreDashboardPage extends PageObject {
         Serenity.recordReportData().withTitle("Se anade un item al carro de compras").andContents(item.toString());
     }
 
-    @Step("Quitar un elemento del carrito de compras")
+    //@Step("Quitar un elemento del carrito de compras")
     public void removeItemFromCartList(int i)
     {
         shopItems.get(i).getButton().click();
         shopItems.remove(i);
     }
 
-    @Step("Se guarda un item en el carrito de compras")
+    //@Step("Se guarda un item en el carrito de compras")
     public List<GridItem> addAnItemToShoppingCart(int i)
     {
         findItems();
@@ -72,7 +75,7 @@ public class StoreDashboardPage extends PageObject {
         return getShopItems();
     }
 
-    @Step("Se hace click para mostrar el carro de compras")
+    //@Step("Se hace click para mostrar el carro de compras")
     public void goToCartCheckout()
     {
         $(BUTTON_GO_TO_CHECKOUT).click();
@@ -102,4 +105,5 @@ public class StoreDashboardPage extends PageObject {
         }
         return getShopItems();
     }
+
 }

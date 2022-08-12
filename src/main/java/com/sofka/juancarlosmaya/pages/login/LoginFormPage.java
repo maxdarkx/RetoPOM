@@ -1,28 +1,20 @@
 package com.sofka.juancarlosmaya.pages.login;
 
-import com.sofka.juancarlosmaya.pages.common.CommonActionOnPages;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.Managed;
+import net.serenitybdd.core.steps.UIInteractions;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
-import java.time.Duration;
 
 import static com.sofka.juancarlosmaya.forms.shop.DashboardForm.*;
 
-public class LoginFormPage extends PageObject {
+public class LoginFormPage extends UIInteractions {
     private static final Logger LOGGER = Logger.getLogger(LoginFormPage.class);
 
-    @Managed
-    private WebDriver driver;
 
-    public LoginFormPage() {
+    public LoginFormPage(WebDriver driver) {
+        super.setDriver(driver);
     }
 
     @Step("fill login form with credentials: user: #user, password: #pass")
@@ -47,12 +39,13 @@ public class LoginFormPage extends PageObject {
         return $(BUTTON_LOGIN).isDisplayed();
     }
 
+    @Step("The login process failed")
     public Boolean isLoginWrong(){
         return $(LABEL_ERROR_LOGIN).isDisplayed();
     }
 
     protected void scrollOn(WebElementFacade element){
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("arguments[0].scrollIntoView();", element);
     }
 }

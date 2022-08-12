@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         publish = true,
         features = "src/test/resources/features/login.feature",
-        glue = "com.sofka.juancarlosmaya.stepdefinitions"
-        //tags = "@incorrectLogin"
+        glue = "com.sofka.juancarlosmaya.stepdefinitions",
+        tags = "@Logout"
 )
 public class LoginRunner {
 }
